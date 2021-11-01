@@ -10,8 +10,9 @@ public class Archer {
     private String firstName;
     private String lastName;
 
-    private static int amountArchers = 0;
+    static int amountArchers;
     private int totalScore;
+    private int missesAmount;
 
     // add instance variable(s) to track the scores per round per arrow
     private int[][] pointsHolder = new int[11][2];
@@ -31,7 +32,8 @@ public class Archer {
         // generate and assign an new unique id
         this.id = generateId();
         // initialise the scores of the archer
-
+        this.totalScore = 0;
+        this.missesAmount = 0;
     }
 
     /**
@@ -51,7 +53,11 @@ public class Archer {
         // counting the total score for an archer
         for (int point : points) {
             totalScore = totalScore + point;
+            if (point == 0) {
+                missesAmount++;
+            }
         }
+
     }
 
     /**
@@ -76,10 +82,26 @@ public class Archer {
      *         convention
      */
     public int compareByHighestTotalScoreWithLeastMissesAndLowestId(Archer other) {
-        // TODO compares the scores/id of this archer with the other archer
+        // compares the scores/id of this archer with the other archer
         // and return the result according to Comparator conventions
+        if (totalScore < other.totalScore) {
+            return 1;
+        } else if (totalScore == other.totalScore) {
+            if (missesAmount > other.missesAmount) {
+                return 1;
+            } else if (missesAmount == other.missesAmount) {
+                if (id < other.id) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
 
-        return 0;
     }
 
     public int getId() {
@@ -101,8 +123,12 @@ public class Archer {
                     + archers.get(i).firstName + " " + archers.get(i).lastName);
     }
 
+    public String toString() {
+        return "4";
+    }
+
     private int generateId() {
-        int id = 135788 + amountArchers;
+        int id = 135787 + amountArchers++;
         return id;
     }
 }
