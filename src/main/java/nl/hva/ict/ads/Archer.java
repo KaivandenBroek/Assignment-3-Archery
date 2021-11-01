@@ -1,14 +1,20 @@
 package nl.hva.ict.ads;
 
+import java.util.List;
+
 public class Archer {
     public static int MAX_ARROWS = 3;
     public static int MAX_ROUNDS = 10;
 
-    private int id; // TODO Once assigned a value is not allowed to change.
+    private final int id; // Once assigned a value is not allowed to change.
     private String firstName;
     private String lastName;
 
-    // TODO add instance variable(s) to track the scores per round per arrow
+    private static int amountArchers = 0;
+    private int totalScore;
+
+    // add instance variable(s) to track the scores per round per arrow
+    private int[][] pointsHolder = new int[11][2];
 
     /**
      * Constructs a new instance of Archer and assigns a unique id to the instance.
@@ -19,9 +25,13 @@ public class Archer {
      * @param lastName  the archers surname.
      */
     public Archer(String firstName, String lastName) {
-        // TODO initialise the new archer
+        // initialise the new archer
+        this.firstName = firstName;
+        this.lastName = lastName;
         // generate and assign an new unique id
+        this.id = generateId();
         // initialise the scores of the archer
+
     }
 
     /**
@@ -33,7 +43,15 @@ public class Archer {
      * @param points the points shot during the round, one for each arrow.
      */
     public void registerScoreForRound(int round, int[] points) {
-        // TODO register the points into the archer's data structure for scores.
+        // register the points into the archer's data structure for scores.
+        for (int i = 0; i < 2; i++) {
+            pointsHolder[round][i] = points[i];
+        }
+
+        // counting the total score for an archer
+        for (int point : points) {
+            totalScore = totalScore + point;
+        }
     }
 
     /**
@@ -42,10 +60,10 @@ public class Archer {
      * @return
      */
     public int getTotalScore() {
-        // TODO calculate/get the total score that the archer has earned across all
+        // calculate/get the total score that the archer has earned across all
         // arrows of all registered rounds
 
-        return 0;
+        return totalScore;
     }
 
     /**
@@ -76,8 +94,15 @@ public class Archer {
         return lastName;
     }
 
-    // TODO provide a toSting implementation to format archers nicely
-    public String toStringImplementation() {
-        return "";
+    // provide a toSting implementation to format archers nicely
+    public static void toStringImplementation(List<Archer> archers) {
+        for (int i = 0; i < archers.size(); i++)
+            System.out.println(archers.get(i).id + " (" + archers.get(i).getTotalScore() + ") "
+                    + archers.get(i).firstName + " " + archers.get(i).lastName);
+    }
+
+    private int generateId() {
+        int id = 135788 + amountArchers;
+        return id;
     }
 }
