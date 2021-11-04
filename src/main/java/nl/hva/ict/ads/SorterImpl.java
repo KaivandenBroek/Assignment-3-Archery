@@ -16,6 +16,7 @@ public class SorterImpl<E> implements Sorter<E> {
      */
     public List<E> selInsSort(List<E> items, Comparator<E> comparator) {
 
+        // insertion sort
         int n = items.size();
         for (int i = 1; i < n; ++i) {
 
@@ -24,7 +25,6 @@ public class SorterImpl<E> implements Sorter<E> {
 
             // Move elements of items, that are greater than the key according to the
             // comparator, to one position ahead of their current position.
-
             while (j >= 0 && comparator.compare(items.get(j), key) > 0) {
                 items.set(j + 1, items.get(j));
                 j = j - 1;
@@ -63,7 +63,7 @@ public class SorterImpl<E> implements Sorter<E> {
      */
     private void quickSortPart(List<E> items, int from, int to, Comparator<E> comparator) {
 
-        // TODO quick sort the sublist of items between index positions 'from' and 'to'
+        // quick sort the sublist of items between index positions 'from' and 'to'
         // inclusive
         int F = from;
         int T = to;

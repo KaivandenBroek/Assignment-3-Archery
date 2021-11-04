@@ -46,16 +46,11 @@ public class Archer {
         // register the points into the archer's data structure for scores.
         for (int i = 0; i < 3; i++) {
             pointsHolder[round - 1][i] = points[i];
-        }
-
-        // counting the total score for an archer
-        for (int point : points) {
-            // totalScore = totalScore + point;
-            if (point == 0) {
+            if (points[i] == 0) {
+                // keep track of misses when points are 0
                 missesAmount++;
             }
         }
-
     }
 
     /**
@@ -86,21 +81,21 @@ public class Archer {
      *         convention
      */
     public int compareByHighestTotalScoreWithLeastMissesAndLowestId(Archer other) {
-        // compares the scores/id of this archer with the other archer
+        // compares the scores/misses/id of this archer with the other archer
         // and return the result according to Comparator conventions
-        if (this.getTotalScore() < other.getTotalScore())
+        if (this.getTotalScore() < other.getTotalScore()) // total score
             return +1;
         if (this.getTotalScore() > other.getTotalScore())
             return -1;
-        if (missesAmount > other.missesAmount)
+        if (missesAmount > other.missesAmount) // misses
             return +1;
         if (missesAmount < other.missesAmount)
             return -1;
-        if (this.getId() > other.getId())
+        if (this.getId() > other.getId()) // id
             return +1;
         if (this.getId() < other.getId())
             return -1;
-        return 0;
+        return 0; // default
     }
 
     public int getId() {
