@@ -15,7 +15,22 @@ public class SorterImpl<E> implements Sorter<E> {
      * @return the items sorted in place
      */
     public List<E> selInsSort(List<E> items, Comparator<E> comparator) {
-        // TODO implement selection or insertion sort
+
+        int n = items.size();
+        for (int i = 1; i < n; ++i) {
+
+            E key = items.get(i);
+            int j = i - 1;
+
+            // Move elements of items, that are greater than the key according to the
+            // comparator, to one position ahead of their current position.
+
+            while (j >= 0 && comparator.compare(items.get(j), key) > 0) {
+                items.set(j + 1, items.get(j));
+                j = j - 1;
+            }
+            items.set(j + 1, key);
+        }
 
         return items;
     }
@@ -50,7 +65,41 @@ public class SorterImpl<E> implements Sorter<E> {
 
         // TODO quick sort the sublist of items between index positions 'from' and 'to'
         // inclusive
+        int F = from;
+        int T = to;
 
+        if (T > F) {
+            // create pivot from the middle of the list
+            E pivot = items.get((F + T) / 2);
+            while (F <= T) {
+                //
+                while (F < to && comparator.compare(items.get(F), pivot) < 0) {
+                    F += 1;
+                }
+                while (T > from && comparator.compare(items.get(T), pivot) > 0) {
+                    T -= 1;
+                }
+                if (F <= T) {
+                    swap(items, F, T);
+                    F += 1;
+                    T -= 1;
+                }
+            }
+        }
+
+        if (from < T) {
+            quickSortPart(items, from, T, comparator);
+        }
+        if (F < to) {
+            quickSortPart(items, F, to, comparator);
+        }
+
+    }
+
+    void swap(List<E> arr, int from, int to) {
+        E F = arr.get(from);
+        arr.set(from, arr.get(to));
+        arr.set(to, F);
     }
 
     /**

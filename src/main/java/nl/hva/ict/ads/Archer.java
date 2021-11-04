@@ -88,24 +88,19 @@ public class Archer {
     public int compareByHighestTotalScoreWithLeastMissesAndLowestId(Archer other) {
         // compares the scores/id of this archer with the other archer
         // and return the result according to Comparator conventions
-        if (totalScore < other.totalScore) {
-            return 1;
-        } else if (totalScore == other.totalScore) {
-            if (missesAmount > other.missesAmount) {
-                return 1;
-            } else if (missesAmount == other.missesAmount) {
-                if (id > other.id) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            } else {
-                return -1;
-            }
-        } else {
+        if (this.getTotalScore() < other.getTotalScore())
+            return +1;
+        if (this.getTotalScore() > other.getTotalScore())
             return -1;
-        }
-
+        if (missesAmount > other.missesAmount)
+            return +1;
+        if (missesAmount < other.missesAmount)
+            return -1;
+        if (this.getId() > other.getId())
+            return +1;
+        if (this.getId() < other.getId())
+            return -1;
+        return 0;
     }
 
     public int getId() {
