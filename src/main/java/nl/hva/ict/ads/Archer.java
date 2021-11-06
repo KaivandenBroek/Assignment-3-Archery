@@ -44,7 +44,7 @@ public class Archer {
      */
     public void registerScoreForRound(int round, int[] points) {
         // register the points into the archer's data structure for scores.
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < MAX_ARROWS; i++) {
             pointsHolder[round - 1][i] = points[i];
             if (points[i] == 0) {
                 // keep track of misses when points are 0
@@ -62,8 +62,8 @@ public class Archer {
         // calculate/get the total score that the archer has earned across all
         // arrows of all registered rounds
         totalScore = 0;
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < MAX_ROUNDS; i++) {
+            for (int j = 0; j < MAX_ARROWS; j++) {
                 totalScore = totalScore + pointsHolder[i][j];
             }
         }
@@ -116,7 +116,7 @@ public class Archer {
     }
 
     private int generateId() {
-        int id = 135787 + amountArchers++;
+        int id = 135788 + amountArchers++;
         return id;
     }
 }

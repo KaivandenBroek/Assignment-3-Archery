@@ -1,11 +1,13 @@
 package nl.hva.ict.ads;
 
+import org.apache.commons.lang3.time.StopWatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
 
 class EfficientyTest {
     protected Sorter<Archer> sorter = new ArcherSorter();
@@ -16,33 +18,30 @@ class EfficientyTest {
     protected List<Archer> testArchers3;
     protected long duration;
     protected long duration2;
+    Timer timer = new Timer();
+    StopWatch stopwatch = new StopWatch();
     protected int maxArchers = 5000000;
+    protected int maxTimeInMilis = 20000;
     protected Comparator<Archer> scoringScheme = Archer::compareByHighestTotalScoreWithLeastMissesAndLowestId;
 
     @BeforeEach
     void setup() {
-        // create archers
-        ChampionSelector championSelector = new ChampionSelector(1L);
-        fewArchers = new ArrayList(championSelector.enrollArchers(23));
-        manyArchers = new ArrayList(championSelector.enrollArchers(250));
+
     }
 
     @Test
     void test() {
         // create archers
-        // 3 unordered lists for each test
         int amountarchers = 100;
 
         while (amountarchers < maxArchers) {
 
             ChampionSelector championSelector = new ChampionSelector(1L);
-            testArchers = new ArrayList(championSelector.enrollArchers(amountarchers));
-            testArchers2 = testArchers;
+            testArchers = new ArrayList<Archer>(championSelector.enrollArchers(amountarchers));
 
-            // long start = System.currentTimeMillis();
-            // long end = start + 20000;
-            while (System.currentTimeMillis() < System.currentTimeMillis() + 20000) {
-                // keep track of time
+            long startTime3 = System.currentTimeMillis();
+            while ((System.currentTimeMillis() - startTime3) < 100) {
+
                 long startTime = System.currentTimeMillis();
 
                 sorter.selInsSort(testArchers, scoringScheme);
@@ -54,24 +53,7 @@ class EfficientyTest {
                         + " duration test in miliseconds: " + duration);
             }
 
-            // long start2 = System.currentTimeMillis();
-            // long end2 = start2 + 20000;
-            // while (System.currentTimeMillis() < end2) {
-            // // keep track of time
-            // long startTime = System.currentTimeMillis();
-
-            // sorter.quickSort(testArchers2, scoringScheme);
-
-            // long endTime = System.currentTimeMillis();
-            // duration2 = (endTime - startTime);
-
-            // System.out.println(
-            // "quicksort - amount archers: " + amountarchers + " duration test in
-            // miliseconds: " + duration2);
-            // }
-
             amountarchers += amountarchers * 2;
-
         }
 
         System.out.println("Test done");
