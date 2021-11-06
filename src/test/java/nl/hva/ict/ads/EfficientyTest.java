@@ -13,6 +13,10 @@ class EfficientyTest {
     protected Sorter<Archer> sorter = new ArcherSorter();
     protected List<Archer> fewArchers;
     protected List<Archer> manyArchers;
+    protected List<Archer> testArchers;
+    protected List<Archer> testArchers2;
+    protected List<Archer> testArchers3;
+    protected int maxArchers = 5000000;
     protected Comparator<Archer> scoringScheme = Archer::compareByHighestTotalScoreWithLeastMissesAndLowestId;
 
     @BeforeEach
@@ -25,10 +29,21 @@ class EfficientyTest {
 
     @Test
     void test() {
-        // creat archers
+        // create archers
         // 3 unordered lists for each test
+        testArchers = new ArrayList(ChampionSelector.enrollArchers(100));
+        testArchers2 = new ArrayList(ChampionSelector.enrollArchers(100));
+        testArchers3 = new ArrayList(ChampionSelector.enrollArchers(100));
 
+        while(testArchers <= maxArchers){
+            
+        }
+        
         // keep track of time
+        long startTime = System.nanoTime();
+        test();
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
         // test insertion sort
 
         // keep track of time
